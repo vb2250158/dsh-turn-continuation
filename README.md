@@ -1,5 +1,7 @@
 # dsh-turn-continuation
 
+This release requires DSH 0.2.1-alpha.1 or a compatible 0.2 release. See [compatibility details](docs/dsh-0.2-compatibility.md).
+
 在意外中断或终止失败且尚未完成的 Agent 回合下显示继续重试按钮。
 
 ## 安装

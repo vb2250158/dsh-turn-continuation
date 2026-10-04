@@ -44,8 +44,8 @@ test('中断任务继续浏览器模块通过 Host Remote 直接续接，不写�
   assert.equal(registrations.length, 1)
   const entry = registrations[0]
   assert.equal(entry.options.name, 'conversation.chat.turnTail')
-  assert.equal(entry.options.select({ turn: { status: 'closed', end: { data: { reason: { kind: 'interrupted' } } } } }), true)
-  assert.equal(entry.options.select({ turn: { status: 'closed', end: { data: { reason: { kind: 'completed' } } } } }), null)
+  assert.equal(entry.options.id, 'turn-continuation')
+  assert.equal(entry.options.select, undefined)
   await entry.options.inject('session-1').continueTurn()
   assert.deepEqual(calls[1], { kind: 'continue', request: { sessionId: 'session-1' } })
   const bundle = await readFile(clientBundleFile, 'utf8')

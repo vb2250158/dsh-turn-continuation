@@ -1,7 +1,13 @@
 /** Browser half of the interrupted-turn continuation action. */
 
-import type { ClientContext, SessionId } from '@deepseek-ai/dsh-client-runtime/client'
+import type { Context as ClientContext } from '@deepseek-ai/cordis'
+import type {} from '@deepseek-ai/dsh-api-remotes/client'
+import type {} from '@deepseek-ai/dsh-api-session-controller/client'
+import type {} from '@deepseek-ai/dsh-client-ui-renderer/client'
+import type {} from '@deepseek-ai/dsh-client-ui-session/client'
+import type { SessionId } from '@deepseek-ai/dsh-session/types'
 import type {} from '@deepseek-ai/dsh-client-ui-conversation/client'
+import type {} from '@deepseek-ai/dsh-client-ui-chat/client'
 import { TurnContinuation, type TurnContinuationInjected } from './TurnContinuation.tsx'
 
 interface TurnContinuationResult {
@@ -36,9 +42,9 @@ const turnContinuationRemote = {
     invocation: { kind: 'direct' as const },
     parameters: [{
       name: 'request', wire: 'request', source: 'json' as const,
-      codec: { mode: 'strict' as const, typeSymbol: 'dsh-turn-continuation#TurnContinuationRequest', schema: requestSchema },
+      codec: { mode: 'strict' as const, typeSymbol: 'dsh-turn-continuation#TurnContinuationRequest', create: () => (requestSchema) },
     }],
-    result: { mode: 'strict' as const, typeSymbol: 'dsh-turn-continuation#TurnContinuationResult', schema: resultSchema },
+    result: { mode: 'strict' as const, typeSymbol: 'dsh-turn-continuation#TurnContinuationResult', create: () => (resultSchema) },
   }],
 }
 
@@ -63,13 +69,10 @@ export async function apply(ctx: ClientContext): Promise<() => Promise<void>> {
     continue?: (request: { sessionId: SessionId }) => Promise<{ ok?: boolean, value?: TurnContinuationResult, error?: { message?: string } }>
   } | undefined
   if (service?.continue === undefined) throw new Error('Turn continuation Remote did not mount.')
-  ctx.slots.inject('conversation.chat.turnTail', () => ctx.slots.register({
+  ctx.slots.inject('conversation.chat.turnTail', () => ctx.slots.register<'conversation.chat.turnTail', TurnContinuationInjected>({
     name: 'conversation.chat.turnTail',
+    id: 'turn-continuation',
     priority: 20,
-    select: ({ turn }) => {
-      const reason = turn.end?.data.reason.kind
-      return turn.status === 'closed' && (reason === 'interrupted' || reason === 'error') ? true : null
-    },
     inject: (sessionId) => ({ continueTurn: continuationFor(service, sessionId) }),
   }, TurnContinuation))
   return dispose

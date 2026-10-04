@@ -9,8 +9,6 @@ const clientSource = resolve(pluginRoot, 'src/client/index.ts')
 const clientOutput = resolve(pluginRoot, 'lib/client.js')
 const hostSource = resolve(pluginRoot, 'src/index.ts')
 const hostOutput = resolve(pluginRoot, 'lib/index.js')
-const invariantSource = resolve(pluginRoot, 'src/invariant.ts')
-const invariantOutput = resolve(pluginRoot, 'lib/invariant.js')
 const moduleId = 'dsh-turn-continuation'
 
 const client = await build({
@@ -31,7 +29,7 @@ const clientArtifact = `window.__ModuleLoader__.load({\n  id: ${JSON.stringify(m
 
 await mkdir(dirname(clientOutput), { recursive: true })
 await writeFile(clientOutput, clientArtifact)
-for (const [source, output] of [[hostSource, hostOutput], [invariantSource, invariantOutput]]) {
+for (const [source, output] of [[hostSource, hostOutput]]) {
   await build({
     entryPoints: [source],
     bundle: true,
@@ -46,4 +44,3 @@ for (const [source, output] of [[hostSource, hostOutput], [invariantSource, inva
 }
 console.log(`Built ${clientOutput}`)
 console.log(`Built ${hostOutput}`)
-console.log(`Built ${invariantOutput}`)

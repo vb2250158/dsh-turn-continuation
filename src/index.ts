@@ -1,5 +1,14 @@
+declare module '@deepseek-ai/dsh-llm' {
+  interface MessageSourceMap {
+    'plugin:turn-continuation': { readonly kind: 'plugin:turn-continuation'; readonly form: 'notice'; readonly summary: string }
+  }
+}
+
 /** Host half of the direct interrupted-turn continuation action. */
 
+import type {} from '@deepseek-ai/dsh-agent'
+import { MessageId } from '@deepseek-ai/dsh-llm'
+import { SessionId } from '@deepseek-ai/dsh-session'
 import type { Context } from '@deepseek-ai/cordis'
 import { Remote, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
 import { createRequire } from 'node:module'
@@ -26,7 +35,7 @@ interface ContinuationProtocol {
 }
 
 function createTurnContinuationService(protocol: ContinuationProtocol) {
-  const initializers: Array<(service: TurnContinuationService) => void> = []
+  const initializers: Array<(this: TurnContinuationService) => void> = []
 
   class TurnContinuationService extends protocol.TypertRemoteService {
     constructor(ctx: Context) {
@@ -36,20 +45,21 @@ function createTurnContinuationService(protocol: ContinuationProtocol) {
 
     /** Queue a plugin-origin continuation so the browser adds no user-message bubble. */
     async continue(request: TurnContinuationRequest): Promise<TurnContinuationResult> {
-      const agent = this.ctx.agents.get(request.sessionId)
+      const agent = this.ctx.agents.get(SessionId(request.sessionId))
       if (agent === undefined) throw new Error('当前会话已不可用。')
       if (agent.status !== 'idle') throw new Error('Agent 正在运行。')
       agent.followup({
-        id: crypto.randomUUID(),
+        id: MessageId(crypto.randomUUID()),
         role: 'user',
         content: [{ type: 'text', text: CONTINUATION_TEXT }],
-        source: { kind: 'plugin', plugin: PLUGIN_NAME, form: 'notice', summary: CONTINUATION_SUMMARY },
+        source: { kind: `plugin:${PLUGIN_NAME}`, form: 'notice', summary: CONTINUATION_SUMMARY },
       })
       return { accepted: true }
     }
   }
 
   protocol.Remote('continue')(TurnContinuationService.prototype.continue, {
+    kind: 'method', access: { has: (value: TurnContinuationService) => 'continue' in value, get: (value: TurnContinuationService) => value.continue }, metadata: {},
     private: false,
     static: false,
     name: 'continue',
