@@ -32,8 +32,10 @@ MIT
 
 ## 宿主兼容性
 
-0.1.3 的 Typert 描述同时提供 `schema` 和 `create()`，兼容 DSH 0.1.5 与 0.1.6 的读取方式。两种方式使用同一请求与结果校验器。
+0.1.3 的 Typert 描述同时提供 `schema` 和 `create()`，兼容 DSH 0.1.5 与 0.1.7 的读取方式。两种方式使用同一请求与结果校验器。
 
 ## Plugin display metadata
 
 The plugin list shows **Turn continuation** in English and **任务续跑** in Chinese, following the DSH interface language. `locale/en.json` and `locale/zh.json` provide the title and description; `icon.svg` supplies self-contained artwork. The package exports and publishes these resources. The icon is adapted from Lucide; see [ICON_LICENSE.txt](ICON_LICENSE.txt).
+
+The icon uses a centered 36 × 36 viewBox to leave more space around the artwork inside the plugin icon frame.

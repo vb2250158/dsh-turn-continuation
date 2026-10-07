@@ -1,7 +1,7 @@
 {
   "name": "dsh-turn-continuation",
   "description": "Continue an unfinished interrupted DSH Web agent turn from its saved session context",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "type": "module",
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
