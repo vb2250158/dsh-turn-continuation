@@ -1,7 +1,7 @@
 {
   "name": "dsh-turn-continuation",
   "description": "Continue an unfinished interrupted DSH Web agent turn from its saved session context",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "type": "module",
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
@@ -18,7 +18,9 @@
       "default": "./lib/typert.host.js"
     },
     "./src/*": "./src/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
   },
   "dsh": {
     "client": {
@@ -64,7 +66,10 @@
     "cordis.patch.yml",
     "README.md",
     "LICENSE",
-    "docs"
+    "docs",
+    "locale",
+    "icon.svg",
+    "ICON_LICENSE.txt"
   ],
   "repository": {
     "type": "git",
@@ -83,5 +88,6 @@
   },
   "dependencies": {
     "zod": "4.4.3"
-  }
+  },
+  "icon": "./icon.svg"
 }
