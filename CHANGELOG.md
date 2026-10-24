@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.8 (2026-10-25)
+
+- Pin Zod 4.6.7 to include the oversized-collection validation fix (GHSA-mrhx-c7xc-m3w5); preserve existing plugin behavior and settings.
+- 固定 Zod 4.6.7，包含超大集合校验的资源消耗修复；保留原有插件行为和设置。
+
 ## 0.1.7 (2026-10-07)
 
 - 缩小图标绘制内容约三分之一，增加方框内的留白。
