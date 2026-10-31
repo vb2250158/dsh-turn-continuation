@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Continuação de turnos",
+    "description": "Continue turnos interrompidos e inacabados a partir do contexto guardado da sessão."
+  }
+}
