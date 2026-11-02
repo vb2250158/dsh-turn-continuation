@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.9 (2026-11-02)
+
+- Generate both advertised TypeScript declaration entries from annotated Host and Client source using TypeScript; preserve runtime continuation behavior and existing public export paths.
+- 从已标注的宿主与客户端源码生成公开声明文件，保留现有导出路径和回合续接行为。
+
 ## 0.1.8 (2026-10-25)
 
 - Pin Zod 4.6.7 to include the oversized-collection validation fix (GHSA-mrhx-c7xc-m3w5); preserve existing plugin behavior and settings.

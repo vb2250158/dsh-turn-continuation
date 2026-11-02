@@ -49,7 +49,7 @@ const turnContinuationRemote = {
 }
 
 /** Browser services required by this client-only slot contribution. */
-export const inject = ['slots', 'remote']
+export const inject: string[] = ['slots', 'remote']
 
 function continuationFor(
   service: { continue?: (request: { sessionId: SessionId }) => Promise<{ ok?: boolean, value?: TurnContinuationResult, error?: { message?: string } }> },

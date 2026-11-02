@@ -1,4 +1,5 @@
 import { build } from 'esbuild'
+import { buildDeclarations } from './build-declarations.mjs'
 import { mkdir, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -44,3 +45,4 @@ for (const [source, output] of [[hostSource, hostOutput]]) {
 }
 console.log(`Built ${clientOutput}`)
 console.log(`Built ${hostOutput}`)
+await buildDeclarations(repositoryRoot)

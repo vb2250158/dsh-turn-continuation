@@ -1,7 +1,7 @@
 {
   "name": "dsh-turn-continuation",
   "description": "Continue an unfinished interrupted DSH Web agent turn from its saved session context",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "type": "module",
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
@@ -69,7 +69,8 @@
     "docs",
     "locale",
     "icon.svg",
-    "ICON_LICENSE.txt"
+    "ICON_LICENSE.txt",
+    "scripts"
   ],
   "repository": {
     "type": "git",
@@ -84,7 +85,8 @@
     "build": "node scripts/build.mjs"
   },
   "devDependencies": {
-    "esbuild": "0.25.12"
+    "esbuild": "0.25.12",
+    "typescript": "6.0.3"
   },
   "dependencies": {
     "zod": "4.6.7"

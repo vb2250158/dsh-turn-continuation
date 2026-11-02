@@ -1,5 +1,7 @@
 # dsh-turn-continuation
 
+The build emits Host and Client declarations separately from their annotated source. Both existing public type entries ship in the package; generation fails on unsupported inferred exports. / 构建从宿主和客户端的已标注源码分别生成声明；既有类型导出随包发布，无法生成的推断导出会使构建失败。
+
 This release requires DSH 0.2.1-alpha.1 or a compatible 0.2 release. See [compatibility details](docs/dsh-0.2-compatibility.md).
 
 在意外中断或终止失败且尚未完成的 Agent 回合下显示继续重试按钮。
